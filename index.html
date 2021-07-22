@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Text Input Effects 1</title>
 		<link rel="shortcut icon" type="img/jpg" href="https://favicon.io">
+		<link rel="stylesheet" type="text/css" href="./assets/css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 		<script src="https://kit.fontawesome.com/dea2b45bdd.js" crossorigin="anonymous"></script>
 	</head>
@@ -60,7 +61,7 @@
 	<section class="content bgcolor-1">
 		<h2 class="nomargin-bottom">Haruki</h2>
 		<span class="input input--haruki">
-			<input class="input__field input__field--haruki" type="text" id="input-1" />
+			<input class="input__field input__field--haruki" type="text" id="input-1" autocomplete="off" />
 			<label class="input__label input__label--haruki" for="input-1">
 				<span class="input__label-content input__label-content--haruki">First Name</span>
 			</label>
@@ -101,36 +102,71 @@
 	</section>
 
 	<section class="content bgcolor-4">
-				<h2>Madoka</h2>
-				<span class="input input--madoka">
-					<input class="input__field input__field--madoka" type="text" id="input-31" />
-					<label class="input__label input__label--madoka" for="input-31">
-						<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-							<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
-						</svg>
-						<span class="input__label-content input__label-content--madoka">Frequency</span>
-					</label>
-				</span>
-				<span class="input input--madoka">
-					<input class="input__field input__field--madoka" type="text" id="input-32" />
-					<label class="input__label input__label--madoka" for="input-32">
-						<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-							<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
-						</svg>
-						<span class="input__label-content input__label-content--madoka">Weight</span>
-					</label>
-				</span>
-				<span class="input input--madoka">
-					<input class="input__field input__field--madoka" type="text" id="input-33" />
-					<label class="input__label input__label--madoka" for="input-33">
-						<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-							<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
-						</svg>
-						<span class="input__label-content input__label-content--madoka">Strength</span>
-					</label>
-				</span>
-			</section>
+		<h2>Madoka</h2>
+		<span class="input input--madoka">
+			<input class="input__field input__field--madoka" type="text" id="input-31" />
+			<label class="input__label input__label--madoka" for="input-31">
+				<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
+					<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+				</svg>
+				<span class="input__label-content input__label-content--madoka">Frequency</span>
+			</label>
+		</span>
+		<span class="input input--madoka">
+			<input class="input__field input__field--madoka" type="text" id="input-32" />
+			<label class="input__label input__label--madoka" for="input-32">
+				<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
+					<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+				</svg>
+				<span class="input__label-content input__label-content--madoka">Weight</span>
+			</label>
+		</span>
+		<span class="input input--madoka">
+			<input class="input__field input__field--madoka" type="text" id="input-33" />
+			<label class="input__label input__label--madoka" for="input-33">
+				<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
+					<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+				</svg>
+				<span class="input__label-content input__label-content--madoka">Strength</span>
+			</label>
+		</span>
+	</section>
+	<script src="./assets/js/classie.js"></script>
+		<script>
+			(function() {
+				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
+				}
 
+				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+		</script>
 
 
 </body>
